@@ -17,6 +17,7 @@ export function connectToChatroom(username: string, room: string) {
 }
 
 socket.on("message", (messageContent: string) => {
+    console.log(`Received message: ${messageContent}`)
     WebRepository.updateMessages(messageContent);
 })
 
@@ -29,6 +30,10 @@ export class WebRepository {
 
     static updateMessages(message: string) {
         this.messagesInstance.UpdateMessages(message);
+    }
+
+    static sendMessage(message: string) {
+        socket.emit("send-message", message)
     }
 }
 

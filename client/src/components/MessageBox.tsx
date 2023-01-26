@@ -39,7 +39,7 @@ export class MessageBox extends React.Component {
                     </>
                 ))}
             </div>
-            <button onClick={() => WebRepository.updateMessages("chuj123")}> Debug add message</button>
+            <button onClick={() => WebRepository.sendMessage("debug")}> Debug add message</button>
         </>  
         )
     }
