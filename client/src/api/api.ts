@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import { MessageBox } from "../components/MessageBox";
 
 const socket = io("ws://localhost:3001");
 
@@ -14,4 +15,21 @@ export function connectToChatroom(username: string, room: string) {
         }
     });
 }
+
+socket.on("message", (messageContent: string) => {
+    WebRepository.updateMessages(messageContent);
+})
+
+export class WebRepository {
+    private static messagesInstance: MessageBox
+
+    static setMessagesContainer(container: MessageBox) {
+        WebRepository.messagesInstance = container;
+    }
+
+    static updateMessages(message: string) {
+        this.messagesInstance.UpdateMessages(message);
+    }
+}
+
 
