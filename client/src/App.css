@@ -1,5 +1,14 @@
+body {
+  background-color: #7B2869;
+  color: #FFBABA;
+}
+
 .App {
   text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .MessageBox {
@@ -8,3 +17,46 @@
   height: 50vh;
   width: 50%;
 }
+
+.Login {
+  margin-top: 4rem;
+  background-color: #C85C8E;
+  height: 50vh;
+  border-radius: 5rem;
+  width: 50%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.Login form {
+  background-color: #9D3C72;
+  padding: 4rem;
+  border-radius: 2rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.Login button {
+  background-color: #7B2869;
+  color: #FFBABA;
+  width: 7rem;
+  height: 4rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: linear-gradient(to right, midnightblue, #7B2869 50%, #7B2869 50%);
+  background-size: 200% 100%;
+  background-position: 100%;
+  transition: background-position 275ms ease;
+}
+
+.Login button:hover {
+  background-position: 0 100%;
+  
+}
+

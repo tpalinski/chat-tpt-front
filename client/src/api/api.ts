@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { MessageBox } from "../components/MessageBox";
 
-const socket = io("ws://localhost:3001");
+const socket = io("https://chat-project.onrender.com");
 
 type RoomParams = {username: string, room: string}
 
