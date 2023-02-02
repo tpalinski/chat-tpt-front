@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { connectToChatroom } from "../api/api";
+import { connectToChatroom, login, UserData } from "../api/api";
 import Select from "react-select";
 import { SingleValue } from "react-select/dist/declarations/src";
 
@@ -17,14 +17,26 @@ const channels: Option[] = [
 
 export function LoginForm(params: params) {
 
-    let [username, setUsername] = useState("");
+    let [email, setEmail] = useState("");
+    let [password, setPassword] = useState("")
     let [channel, setChannel] = useState(channels[0]);
 
     const handleButton = () => {
         try {
-            connectToChatroom(username, "test");
+            connectToChatroom(email, "test");
+            let userData: UserData = {
+                email,
+                password
+            }
+            login(userData).then(res => {
+                console.log(res)
+                if(!res){
+                    params.setLogin();
+                } else {
+                    alert(`Error while logging in: ${res}`)
+                }
+            })
             console.log("Connected to the room")
-            params.setLogin();
         } catch (error) {
             console.log(error);
         }
@@ -43,8 +55,12 @@ export function LoginForm(params: params) {
                 handleButton();
             }}>
                 <div className="Form-Container">
-                    <h3>Username</h3>
-                    <input type="text" onChange={(e) => setUsername(e.target.value)} value={username}/>
+                    <h3>Email</h3>
+                    <input type="text" onChange={(e) => setEmail(e.target.value)} value={email}/>
+                </div>
+                <div className="Form-Container">
+                    <h3>Password</h3>
+                    <input type="text" onChange={(e) => setPassword(e.target.value)} value={password}/>
                 </div>
                 <div className="Form-Container">
                     <h3>Room</h3>

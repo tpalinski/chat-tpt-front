@@ -1,9 +1,15 @@
 import { io } from "socket.io-client";
 import { MessageBox } from "../components/MessageBox";
-
-const socket = io("https://chat-project.onrender.com");
+const BASE_URL = "localhost:3001"
+const socket = io(BASE_URL);
+const REQUEST_URL = "http://" + BASE_URL
 
 type RoomParams = {username: string, room: string}
+export type UserData = {
+    email: string,
+    password: string,
+    nickname?: string
+}
 
 export function connectToChatroom(username: string, room: string) {
     let param: RoomParams = {username, room}
@@ -34,6 +40,26 @@ export class WebRepository {
 
     static sendMessage(message: string) {
         socket.emit("send-message", message)
+    }
+}
+
+/** Attempt to authenticate this client establishing http session
+ * @returns response status code if error, null if successful
+ * @param user 
+ * Submitted credentials
+ */
+export async function login(user: UserData): Promise<number | null> {
+    console.log(JSON.stringify(user))
+    let response = await fetch(REQUEST_URL + "/user/login", {
+        method: 'post',
+        mode: 'cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+    })
+    if(response.ok) {
+        return null
+    } else {
+        return response.status
     }
 }
 
