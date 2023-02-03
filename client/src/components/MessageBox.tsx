@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { WebRepository } from '../api/api';
+import { UserInfo } from './UserInfo';
 
 type Props = {}
 type Messages = string[]
@@ -69,6 +70,7 @@ export class MessageBox extends React.Component {
                 <input onChange={(e) => this.handleMessageChange(e.target.value)} value={this.state.message} type="text"/>
                 <button> Send Message </button>
             </form>
+            <UserInfo />
         </>  
         )
     }

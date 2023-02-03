@@ -66,7 +66,7 @@ export function LoginForm(params: params) {
                     <h3>Room</h3>
                     <Select options={channels} value={channel} onChange={handleChange} className="Select"/>
                 </div>
-                <button onClick={handleButton}>Join room</button>
+                <button>Join room</button>
             </form>
         </div>
     )
