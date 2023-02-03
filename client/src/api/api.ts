@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { MessageBox } from "../components/MessageBox";
-const BASE_URL = "chat-project.onrender.com"
-const socket = io("https://chat-project.onrender.com");
+const BASE_URL = "localhost:3001"
+const socket = io('localhost:3001');
 const REQUEST_URL = "http://" + BASE_URL
 
 type RoomParams = {username: string, room: string}
@@ -54,6 +54,7 @@ export async function login(user: UserData): Promise<number | null> {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(user),
+        credentials: 'include'
     })
     if(response.ok) {
         return null
@@ -65,6 +66,7 @@ export async function login(user: UserData): Promise<number | null> {
 export async function getUserData(): Promise<UserData | null> {
     let response = await fetch(REQUEST_URL + "/user/me", {
         method: 'get',
+        credentials: 'include'
     })
     if(response.ok) {
         return await response.json() as UserData
