@@ -61,16 +61,15 @@ export class MessageBox extends React.Component {
             <h4>Messages:</h4>
             <div className='MessageBox'>
                 {this.state.messages.map((message) => (
-                    <>
+                    <div className='Message'>
                     <p>{message}</p> <br/>
-                    </>
+                    </div>
                 ))}
             </div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
                 <input onChange={(e) => this.handleMessageChange(e.target.value)} value={this.state.message} type="text"/>
                 <button> Send Message </button>
             </form>
-            <UserInfo />
         </>  
         )
     }

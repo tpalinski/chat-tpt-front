@@ -1,23 +1,15 @@
-import { useState } from "react"
-import { getUserData, UserData } from "../api/api"
 
+type Props = {
+    nickname?: string
+    logout: () => void
+}
 
-
-export function UserInfo() {
-
-    let [userData, setUserData] = useState<UserData>({email: "", nickname: ""})
-
-    const handleClick = () => {
-        getUserData().then(res => {
-            if(res) {
-                console.log(res)
-            }
-        })
-    }
+export function UserInfo(props: Props) {
 
     return (
         <div className="UserInfo">
-            <button onClick={() => handleClick()}>Get my info</button>
+            <h3> Welcome {props.nickname ? props.nickname : "unknown"}</h3>
+            <button onClick={props.logout}> Log out </button>
         </div>
     )
 }

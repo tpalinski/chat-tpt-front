@@ -15,7 +15,22 @@ body {
   scroll-behavior: smooth;
   overflow-y: scroll;
   height: 50vh;
-  width: 50%;
+  width: 50vw;
+  border: 0.1rem solid black;
+}
+
+.Message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Message:nth-child(odd){
+  background-color: #C85C8E;
+}
+
+.Message:nth-child(even){
+  background-color: #9D3C72;
 }
 
 .Login {
@@ -58,4 +73,6 @@ body {
   background-position: 0 100%;
   
 }
+
+
 

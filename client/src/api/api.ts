@@ -75,4 +75,11 @@ export async function getUserData(): Promise<UserData | null> {
     }
 }
 
+export async function logOut(): Promise<boolean> {
+    let response = await fetch(REQUEST_URL + "/user/logout", {
+        method: 'get',
+        credentials: 'include'
+    })
+    return response.ok
+}
 
