@@ -5,6 +5,7 @@ const socket = io('localhost:3001');
 const REQUEST_URL = "http://" + BASE_URL
 
 type RoomParams = {username: string, room: string}
+export type Message = {author: string, content: string}
 export type UserData = {
     email: string,
     password?: string,
@@ -22,7 +23,7 @@ export function connectToChatroom(username: string, room: string) {
     });
 }
 
-socket.on("message", (messageContent: string) => {
+socket.on("message", (messageContent: Message) => {
     console.log(`Received message: ${messageContent}`)
     WebRepository.updateMessages(messageContent);
 })
@@ -34,11 +35,11 @@ export class WebRepository {
         WebRepository.messagesInstance = container;
     }
 
-    static updateMessages(message: string) {
+    static updateMessages(message: Message) {
         this.messagesInstance.UpdateMessages(message);
     }
 
-    static sendMessage(message: string) {
+    static sendMessage(message: Message) {
         socket.emit("send-message", message)
     }
 }

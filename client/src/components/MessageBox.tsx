@@ -1,16 +1,18 @@
 
 import React from 'react';
-import { WebRepository } from '../api/api';
+import { Message, WebRepository } from '../api/api';
 import { UserInfo } from './UserInfo';
 
-type Props = {}
-type Messages = string[]
+type Props =  {
+    user: string
+}
+type Messages = Message[]
 type MessagesState = {
     messages: Messages,
     message: string
 }
 
-export class MessageBox extends React.Component {
+export class MessageBox extends React.Component<{user?: string}> {
 
     state: MessagesState = {
         messages: [],
@@ -19,10 +21,13 @@ export class MessageBox extends React.Component {
 
     constructor(props: Props) {
         super(props);
-        this.state = {messages: ["Welcome to the new channel"], message: ""};
+        this.state = {messages: [{
+                author: "system", 
+                content:"Welcome to the chat"}],
+            message:  ""};
       }
 
-    public UpdateMessages(newMessage: string) {
+    public UpdateMessages(newMessage: Message) {
         this.setState((prevState: MessagesState) => ({
             messages: [...prevState.messages, newMessage],
             message: prevState.message
@@ -39,11 +44,16 @@ export class MessageBox extends React.Component {
 
     handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        WebRepository.sendMessage(
+            {
+                author: this.props.user || "",
+                content: this.state.message
+            })
         this.setState((prevState: MessagesState) => ({
             message: "",
             messages: prevState.messages
         }))
-        WebRepository.sendMessage(this.state.message)
+        
     }
 
 
@@ -62,7 +72,9 @@ export class MessageBox extends React.Component {
             <div className='MessageBox'>
                 {this.state.messages.map((message) => (
                     <div className='Message'>
-                    <p>{message}</p> <br/>
+                        <p>{message.author}</p>
+                        <br/>
+                        <p>{message.content}</p>
                     </div>
                 ))}
             </div>

@@ -35,7 +35,7 @@ export function MainScreen(props: Props) {
     return (
         <div className="MainApp">
             <UserInfo nickname={userData.nickname} logout={logout}/>
-            <MessageBox />
+            <MessageBox user={userData.nickname}/>
         </div>
     )
 }
